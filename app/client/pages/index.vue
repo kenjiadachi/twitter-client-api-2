@@ -8,22 +8,19 @@
       <h2 class="subtitle">
         My awe-inspiring Nuxt.js
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <button
+         v-if="!$store.state.isLoggedin"
+         @click="signinWithTwitter"
+         class="button is-info is-large"
+       >
+         Twitterアカウントでログイン
+       </button>
+       <div v-if="$store.state.isLoggedin">
+         ようこそ、 {{ $store.state.userName }}さん。
+         <button @click="signOut" class="button is-info is-large">
+           ログアウト
+         </button>
+       </div>
     </div>
   </div>
 </template>
@@ -37,6 +34,17 @@ export default {
   },
   created () {
     console.log(process.env.apiBaseUrl)
+  },
+  mounted () {
+    this.$store.dispatch('twitterAuthStateChanged')
+  },
+  methods: {
+    signinWithTwitter () {
+      this.$store.dispatch('twitterSignIn')
+    },
+    signOut () {
+      this.$store.dispatch('twitterSignOut')
+    }
   }
 }
 </script>
