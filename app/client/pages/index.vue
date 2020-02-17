@@ -34,6 +34,9 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
+  },
+  created () {
+    console.log(process.env.apiBaseUrl)
   }
 }
 </script>
