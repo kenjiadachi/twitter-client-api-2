@@ -1,4 +1,7 @@
 
+const environment = process.env.NODE_ENV || 'development';
+const envSet = require(`./env/env.${environment}.js`)
+
 module.exports = {
   mode: 'universal',
   /*
@@ -72,5 +75,11 @@ module.exports = {
     webpack: {
       poll: true
     }
-  }
+  },
+  env: envSet,
+  generate: {
+    dir: 'public'
+  },
+  srcDir: "./client/",
+  serverMiddleware: ["~~/api/"],
 }
